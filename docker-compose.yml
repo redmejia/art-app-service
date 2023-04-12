@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  art-service:
+    build: 
+      context: ./
+      dockerfile: ./art-service.Dockerfile
+    restart: always
+    ports:
+      - "8080:80"
+    # deploy:
+    #   mode: replicated
+    #   replicated: 1
+    environment:
+      # test database DSN connection
+      DSN: "host=postgres port=5432 user=postgres password=password dbname=users sslmode=disable" 
+    
+  postgres:
+    image: 'postgres:14.0'
+    ports:
+      - "5432:5432"
+    restart: always
+    # deploy:
+    #   mode: replicated
+    #   replicas: 1
+    environment:
+      # test enviroment
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: users
+    
