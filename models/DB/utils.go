@@ -13,7 +13,7 @@ func (db *DB) GetAll() []models.Artist {
 
 	var artists []models.Artist
 
-	row, err := db.Db.QueryContext(ctx, `select a_id, artist_name, profession from artists`)
+	row, err := db.Db.QueryContext(ctx, `select a_id, artist_name, profession from accounts`)
 	if err != nil {
 		log.Println("error rows ", err)
 	}
@@ -26,4 +26,28 @@ func (db *DB) GetAll() []models.Artist {
 
 	return artists
 
+}
+
+func (db *DB) GetAllPhotos() []models.Photos {
+
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	var photos []models.Photos
+
+	row, err := db.Db.QueryContext(ctx,
+		`SELECT a_id, decription, artist_name, photo_url FROM art_photos`,
+	)
+
+	if err != nil {
+		log.Println("error rows ", err)
+	}
+
+	for row.Next() {
+		var photo models.Photos
+		row.Scan(&photo.ID, &photo.Description, &photo.Name, &photo.PhotoURL)
+		photos = append(photos, photo)
+	}
+
+	return photos
 }

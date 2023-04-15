@@ -23,12 +23,33 @@ var artistType = graphql.NewObject(
 	},
 )
 
+var photosType = graphql.NewObject(
+	graphql.ObjectConfig{
+		Name: "Photos",
+		Fields: graphql.Fields{
+			"id": &graphql.Field{
+				Type: graphql.Int,
+			},
+			"description": &graphql.Field{
+				Type: graphql.String,
+			},
+			"name": &graphql.Field{
+				Type: graphql.String,
+			},
+			"photo_url": &graphql.Field{
+				Type: graphql.String,
+			},
+		},
+	},
+)
+
 func QueryType(db *db.DB) *graphql.Object {
 	var queryType = graphql.NewObject(
 		graphql.ObjectConfig{
 			Name: "Query",
 			Fields: graphql.Fields{
-				"list": ArtistList(db),
+				"list":        ArtistList(db),
+				"photos_list": PhotosList(db),
 			},
 		},
 	)

@@ -16,3 +16,14 @@ func ArtistList(db *db.DB) *graphql.Field {
 		},
 	}
 }
+
+func PhotosList(db *db.DB) *graphql.Field {
+	return &graphql.Field{
+		Type:        graphql.NewList(photosType),
+		Description: "Get all art photos",
+		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+			photos := db.GetAllPhotos()
+			return photos, nil
+		},
+	}
+}
