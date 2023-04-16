@@ -48,8 +48,9 @@ func QueryType(db *db.DB) *graphql.Object {
 		graphql.ObjectConfig{
 			Name: "Query",
 			Fields: graphql.Fields{
-				"list":        ArtistList(db),
-				"photos_list": PhotosList(db),
+				"list":     ArtistList(db),
+				"art_list": ArtList(db),
+				"art":      Art(db),
 			},
 		},
 	)
