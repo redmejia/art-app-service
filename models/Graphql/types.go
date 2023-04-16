@@ -27,13 +27,13 @@ var photosType = graphql.NewObject(
 	graphql.ObjectConfig{
 		Name: "Photos",
 		Fields: graphql.Fields{
-			"id": &graphql.Field{
+			"artist": &graphql.Field{
+				Type: artistType,
+			},
+			"art_id": &graphql.Field{
 				Type: graphql.Int,
 			},
-			"description": &graphql.Field{
-				Type: graphql.String,
-			},
-			"name": &graphql.Field{
+			"art_description": &graphql.Field{
 				Type: graphql.String,
 			},
 			"photo_url": &graphql.Field{

@@ -36,7 +36,15 @@ func (db *DB) GetAllPhotos() []models.Photos {
 	var photos []models.Photos
 
 	row, err := db.Db.QueryContext(ctx,
-		`SELECT a_id, decription, artist_name, photo_url FROM art_photos`,
+		`SELECT 
+			acc.id,
+			acc.artist_name,
+			acc.profession,
+			ap.art_id,
+			ap.art_description,
+			ap.photo_url
+		FROM accounts acc
+		JOIN art_photos ap ON acc.id = ap.id`,
 	)
 
 	if err != nil {
@@ -45,9 +53,18 @@ func (db *DB) GetAllPhotos() []models.Photos {
 
 	for row.Next() {
 		var photo models.Photos
-		row.Scan(&photo.ID, &photo.Description, &photo.Name, &photo.PhotoURL)
+		row.Scan(
+			&photo.Artist.ID,
+			&photo.Artist.Name,
+			&photo.Artist.Profession,
+			&photo.ArtId,
+			&photo.ArtDescription,
+			&photo.PhotoURL,
+		)
 		photos = append(photos, photo)
 	}
+	log.Println("DATA : ", photos)
 
 	return photos
+
 }
