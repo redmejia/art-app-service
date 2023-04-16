@@ -7,8 +7,8 @@ type Artist struct {
 }
 
 type Photos struct {
-	ID          int    `json:"id"`
-	Description string `json:"discription"` // fix type on db table photo
-	Name        string `json:"name"`
-	PhotoURL    string `json:"photo_url"`
+	Artist         `json:"artist"`
+	ArtId          int    `json:"art_id"`
+	ArtDescription string `json:"art_description"`
+	PhotoURL       string `json:"photo_url"`
 }
