@@ -31,7 +31,7 @@ var photosType = graphql.NewObject(
 				Type: artistType,
 			},
 			"art_id": &graphql.Field{
-				Type: graphql.Int,
+				Type: graphql.String,
 			},
 			"art_description": &graphql.Field{
 				Type: graphql.String,
@@ -48,9 +48,10 @@ func QueryType(db *db.DB) *graphql.Object {
 		graphql.ObjectConfig{
 			Name: "Query",
 			Fields: graphql.Fields{
-				"list":     ArtistList(db),
-				"art_list": ArtList(db),
-				"art":      Art(db),
+				"list":        ArtistList(db),
+				"art_list":    ArtList(db),
+				"artInput":    Art(db),
+				"firtsNthArt": FirstNthPieces(db),
 			},
 		},
 	)
